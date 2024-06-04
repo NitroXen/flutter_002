@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_002/models/item.dart';
+import 'package:flutter_002/screens/add_screen.dart';
 import 'package:flutter_002/screens/main_screen.dart';
-import 'package:flutter_002/screens/second_screen.dart';
+import 'package:flutter_002/services/database.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
@@ -15,6 +18,7 @@ class MainApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => MainScreen(),
+        "/add": (context) => AddScreen(),
       },
     );
   }
