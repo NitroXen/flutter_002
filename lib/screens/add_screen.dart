@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_002/models/item.dart';
+import 'package:flutter_002/screens/main_screen.dart';
 import 'package:flutter_002/services/database.dart';
 
 class AddScreen extends StatefulWidget {
@@ -47,6 +49,9 @@ class _AddScreenState extends State<AddScreen> {
               ),
               TextField(
                 controller: priceController,
+                inputFormatters: [
+                  FilteringTextInputFormatter(RegExp('[0-9.]*'), allow: true)
+                ],
                 decoration: InputDecoration(hintText: "Precio"),
               ),
               Padding(
@@ -60,13 +65,17 @@ class _AddScreenState extends State<AddScreen> {
                         },
                         child: Text("Cancelar")),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           // TODO Areglar id para añadir mas items
                           DBItems.insertItem(Item(
-                              id: 0,
+                              id: await DBItems.getID(),
                               name: nameController.text,
                               price: double.parse(priceController.text)));
-                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => new MainScreen(),
+                              ));
                         },
                         child: Text("Añadir"))
                   ],

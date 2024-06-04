@@ -8,12 +8,18 @@ class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String list = "";
+    double total = 0;
+    int count = 0;
     for (int i = 0; i < listItem!.length; i++) {
       if (listItem![i].quantity > 0) {
         list =
-            "$list${listItem![i].name}  ${listItem![i].price * listItem![i].quantity}\n";
+            "$list${listItem![i].name} * ${listItem![i].quantity} =  ${(listItem![i].price * listItem![i].quantity).toStringAsFixed(2)}\n";
+        count += listItem![i].quantity;
+        total += listItem![i].price * listItem![i].quantity;
       }
     }
+
+    list += "\nCantidad : $count --- Total : ${total.toStringAsFixed(2)}";
 
     return Scaffold(
       appBar: AppBar(

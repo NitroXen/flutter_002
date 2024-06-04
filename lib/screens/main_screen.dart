@@ -22,19 +22,24 @@ class MainScreen extends StatelessWidget {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: FutureBuilder(
-          future: DBItems.getItems(),
-          builder: (context, snapshot) {
-            listItem = snapshot.data ?? [];
-            return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                shrinkWrap: true,
-                itemCount: listItem.length,
-                itemBuilder: (context, index) {
-                  return ItemCash(item: listItem[index]);
-                });
+        body: Focus(
+          child: FutureBuilder(
+            future: DBItems.getItems(),
+            builder: (context, snapshot) {
+              listItem = snapshot.data ?? [];
+              return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: listItem.length,
+                  itemBuilder: (context, index) {
+                    return ItemCash(item: listItem[index]);
+                  });
+            },
+          ),
+          onFocusChange: (value) {
+            print("Focus: $value");
           },
         ),
         floatingActionButton: FloatingActionButton(

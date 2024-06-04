@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_002/models/item.dart';
 import 'package:flutter_002/screens/add_screen.dart';
 import 'package:flutter_002/screens/main_screen.dart';
-import 'package:flutter_002/services/database.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +12,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Implementar Splach Screen
     return MaterialApp(
       initialRoute: "/",
       routes: {

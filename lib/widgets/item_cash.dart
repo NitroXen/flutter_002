@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_002/models/item.dart';
 
 class ItemCash extends StatefulWidget {
@@ -16,7 +17,18 @@ class _ItemCashState extends State<ItemCash> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(widget.item.name + "  " + widget.item.price.toString()),
+        GestureDetector(
+          child: Text(
+            widget.item.name + " : " + widget.item.price.toString(),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          onDoubleTap: () {
+            setState(() {
+              widget.item.quantity = 0;
+            });
+          },
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

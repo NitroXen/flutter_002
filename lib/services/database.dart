@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_002/models/item.dart';
 import 'package:sqflite/sqflite.dart';
@@ -37,5 +39,11 @@ class DBItems {
       return Item(
           id: maps[i]['id'], name: maps[i]['name'], price: maps[i]['price']);
     });
+  }
+
+  static Future<int> getID() async {
+    List<Item> list = await DBItems.getItems();
+
+    return list.length + 1;
   }
 }
