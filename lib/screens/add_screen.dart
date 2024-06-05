@@ -6,7 +6,8 @@ import 'package:flutter_002/services/database.dart';
 
 class AddScreen extends StatefulWidget {
   Item item;
-  AddScreen({super.key, required this.item});
+  bool mod;
+  AddScreen({super.key, required this.item, required this.mod});
 
   @override
   State<AddScreen> createState() => _AddScreenState();
@@ -70,15 +71,20 @@ class _AddScreenState extends State<AddScreen> {
                         child: const Text("Cancelar")),
                     ElevatedButton(
                         onPressed: () async {
-                          // TODO Areglar id para añadir mas items
-                          DBItems.insertItem(Item(
-                              id: await DBItems.getID(),
-                              name: nameController.text,
-                              price: double.parse(priceController.text)));
+                          if (widget.mod && priceController.text == "0") {
+                            DBItems.deleteItem(widget.item.id);
+                          } else {
+                            DBItems.insertItem(Item(
+                                id: widget.mod
+                                    ? widget.item.id
+                                    : await DBItems.getID(),
+                                name: nameController.text,
+                                price: double.parse(priceController.text)));
+                          }
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => new MainScreen(),
+                                builder: (context) => MainScreen(),
                               ));
                         },
                         child: const Text("Añadir"))

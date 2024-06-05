@@ -23,6 +23,7 @@ class MainScreen extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => AddScreen(
                           item: Item(id: 0, name: "", price: 0.0),
+                          mod: false,
                         ),
                       ));
                 },

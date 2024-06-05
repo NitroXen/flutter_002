@@ -32,7 +32,10 @@ class _ItemCashState extends State<ItemCash> {
           onLongPress: () {
             Navigator.push(context, MaterialPageRoute(
               builder: (context) {
-                return AddScreen(item: widget.item);
+                return AddScreen(
+                  item: widget.item,
+                  mod: true,
+                );
               },
             ));
           },
