@@ -5,7 +5,8 @@ import 'package:flutter_002/screens/main_screen.dart';
 import 'package:flutter_002/services/database.dart';
 
 class AddScreen extends StatefulWidget {
-  const AddScreen({super.key});
+  Item item;
+  AddScreen({super.key, required this.item});
 
   @override
   State<AddScreen> createState() => _AddScreenState();
@@ -19,6 +20,9 @@ class _AddScreenState extends State<AddScreen> {
   void initState() {
     nameController = TextEditingController();
     priceController = TextEditingController();
+
+    nameController.text = widget.item.name;
+    priceController.text = widget.item.price.toString();
     super.initState();
   }
 
@@ -33,7 +37,7 @@ class _AddScreenState extends State<AddScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "add Screen",
         ),
         centerTitle: true,
@@ -45,14 +49,14 @@ class _AddScreenState extends State<AddScreen> {
             children: [
               TextField(
                 controller: nameController,
-                decoration: InputDecoration(hintText: "Nombre"),
+                decoration: const InputDecoration(hintText: "Nombre"),
               ),
               TextField(
                 controller: priceController,
                 inputFormatters: [
                   FilteringTextInputFormatter(RegExp('[0-9.]*'), allow: true)
                 ],
-                decoration: InputDecoration(hintText: "Precio"),
+                decoration: const InputDecoration(hintText: "Precio"),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -63,7 +67,7 @@ class _AddScreenState extends State<AddScreen> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Cancelar")),
+                        child: const Text("Cancelar")),
                     ElevatedButton(
                         onPressed: () async {
                           // TODO Areglar id para añadir mas items
@@ -77,7 +81,7 @@ class _AddScreenState extends State<AddScreen> {
                                 builder: (context) => new MainScreen(),
                               ));
                         },
-                        child: Text("Añadir"))
+                        child: const Text("Añadir"))
                   ],
                 ),
               )

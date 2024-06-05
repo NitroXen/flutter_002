@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_002/models/item.dart';
+import 'package:flutter_002/screens/add_screen.dart';
 import 'package:flutter_002/screens/second_screen.dart';
 import 'package:flutter_002/services/database.dart';
 import 'package:flutter_002/widgets/item_cash.dart';
@@ -17,7 +18,13 @@ class MainScreen extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/add");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddScreen(
+                          item: Item(id: 0, name: "", price: 0.0),
+                        ),
+                      ));
                 },
                 icon: const Icon(Icons.add))
           ],

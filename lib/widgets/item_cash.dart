@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_002/models/item.dart';
+import 'package:flutter_002/screens/add_screen.dart';
 
 class ItemCash extends StatefulWidget {
   Item item;
@@ -27,6 +28,13 @@ class _ItemCashState extends State<ItemCash> {
             setState(() {
               widget.item.quantity = 0;
             });
+          },
+          onLongPress: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return AddScreen(item: widget.item);
+              },
+            ));
           },
         ),
         Row(
