@@ -38,8 +38,8 @@ class _AddScreenState extends State<AddScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "add Screen",
+        title: Text(
+          widget.mod ? "Modificar Item" : "Añadir Item",
         ),
         centerTitle: true,
       ),
@@ -87,7 +87,7 @@ class _AddScreenState extends State<AddScreen> {
                                 builder: (context) => MainScreen(),
                               ));
                         },
-                        child: const Text("Añadir"))
+                        child: Text(widget.mod ? "Modificar" : "Añadir"))
                   ],
                 ),
               )
