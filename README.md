@@ -5,6 +5,6 @@ A new Flutter project.
 ## lista de tareas
 
 - diseñar interfaz amigable
-- incorporar SQLite
+- ~~incorporar SQLite~~
 - incliir imagenes de productos
 - usar api de productos alimentarios

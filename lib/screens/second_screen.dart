@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_002/models/item.dart';
+import 'package:flutter_002/utils/my_style.dart';
 
 class SecondScreen extends StatelessWidget {
   List<Item>? listItem;
@@ -26,7 +27,10 @@ class SecondScreen extends StatelessWidget {
         title: const Text("Second Screen"),
       ),
       body: Center(
-        child: Text(list.isEmpty ? "No Select object" : list),
+        child: Text(
+          list.isEmpty ? "No Select object" : list,
+          style: myStyleProd(),
+        ),
       ),
     );
   }
