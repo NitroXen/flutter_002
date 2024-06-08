@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_002/models/item.dart';
 import 'package:flutter_002/utils/my_style.dart';
 
+// ignore: must_be_immutable
 class SecondScreen extends StatelessWidget {
   List<Item>? listItem;
   SecondScreen({super.key, required this.listItem});

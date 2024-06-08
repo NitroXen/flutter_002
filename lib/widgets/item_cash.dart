@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_002/models/item.dart';
 import 'package:flutter_002/screens/add_screen.dart';
 
+// ignore: must_be_immutable
 class ItemCash extends StatefulWidget {
   Item item;
 
@@ -16,14 +16,18 @@ class _ItemCashState extends State<ItemCash> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             child: Text(
-              widget.item.name + " : " + widget.item.price.toString(),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              "${widget.item.name} : ${widget.item.price}",
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             onDoubleTap: () {
@@ -43,7 +47,8 @@ class _ItemCashState extends State<ItemCash> {
             },
           ),
           Container(
-            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.blue.shade200,
@@ -57,16 +62,16 @@ class _ItemCashState extends State<ItemCash> {
                       widget.item.quantity = widget.item.quantity + 1;
                     });
                   },
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll(Colors.blue.shade300)),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(widget.item.quantity.toString()),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 IconButton(
@@ -74,11 +79,12 @@ class _ItemCashState extends State<ItemCash> {
                     setState(() {
                       if (widget.item.quantity < 1) {
                         widget.item.quantity = 0;
+                      } else {
+                        widget.item.quantity = widget.item.quantity - 1;
                       }
-                      widget.item.quantity = widget.item.quantity - 1;
                     });
                   },
-                  icon: Icon(Icons.remove),
+                  icon: const Icon(Icons.remove),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStatePropertyAll(Colors.blue.shade300)),

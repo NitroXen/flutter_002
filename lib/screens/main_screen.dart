@@ -8,7 +8,7 @@ import 'package:flutter_002/widgets/item_cash.dart';
 import 'package:flutter_002/utils/my_style.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -44,21 +44,34 @@ class _MainScreenState extends State<MainScreen> {
         body: Column(
           children: [
             Expanded(
-                child: FutureBuilder(
-              future: DBItems.getItems(),
-              builder: (context, snapshot) {
-                listItem = snapshot.data ?? [];
-                return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: listItem.length,
-                    itemBuilder: (context, index) {
-                      return ItemCash(item: listItem[index]);
-                    });
-              },
+                child: Column(
+              children: [
+                FutureBuilder(
+                  future: DBItems.getItems(),
+                  builder: (context, snapshot) {
+                    listItem = snapshot.data ?? [];
+                    return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        shrinkWrap: true,
+                        itemCount: listItem.length,
+                        itemBuilder: (context, index) {
+                          return ItemCash(item: listItem[index]);
+                        });
+                  },
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Center(
+                  child: Text(
+                    "Double tap in text to Reset to 0\n press long in text to modify",
+                    style: styleTutorial(),
+                  ),
+                )
+              ],
             )),
             const SizedBox(
               height: 15,
@@ -71,6 +84,6 @@ class _MainScreenState extends State<MainScreen> {
                   MaterialPageRoute(
                       builder: (context) => SecondScreen(listItem: listItem)),
                 ),
-            child: Icon(Icons.shop)));
+            child: const Icon(Icons.shop)));
   }
 }

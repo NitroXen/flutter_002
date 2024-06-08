@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_002/models/item.dart';
 import 'package:flutter_002/screens/main_screen.dart';
 import 'package:flutter_002/services/database.dart';
+import 'package:flutter_002/utils/my_style.dart';
 
 class AddScreen extends StatefulWidget {
   Item item;
@@ -84,11 +85,17 @@ class _AddScreenState extends State<AddScreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MainScreen(),
+                                builder: (context) => const MainScreen(),
                               ));
                         },
                         child: Text(widget.mod ? "Modificar" : "Añadir"))
                   ],
+                ),
+              ),
+              Center(
+                child: Text(
+                  "select price 0 to delete",
+                  style: styleTutorial(),
                 ),
               )
             ],
