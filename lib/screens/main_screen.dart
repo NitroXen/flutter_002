@@ -16,9 +16,16 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late List<Item> listItem = [];
+  late DBItems dbItems;
 
   int num = 0;
   double total = 0.0;
+
+  @override
+  void initState() {
+    dbItems = DBItems();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AddScreen(
@@ -41,42 +48,37 @@ class _MainScreenState extends State<MainScreen> {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(
-                child: Column(
-              children: [
-                FutureBuilder(
-                  future: DBItems.getItems(),
-                  builder: (context, snapshot) {
-                    listItem = snapshot.data ?? [];
-                    return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                        shrinkWrap: true,
-                        itemCount: listItem.length,
-                        itemBuilder: (context, index) {
-                          return ItemCash(item: listItem[index]);
-                        });
-                  },
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              FutureBuilder(
+                future: dbItems.getItems(),
+                builder: (context, snapshot) {
+                  listItem = snapshot.data ?? [];
+                  return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: listItem.length,
+                      itemBuilder: (context, index) {
+                        return ItemCash(item: snapshot.data![index]);
+                      });
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Text(
+                  "Double tap in text for Reset to 0\n press long in text to modify",
+                  style: styleTutorial(),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: Text(
-                    "Double tap in text to Reset to 0\n press long in text to modify",
-                    style: styleTutorial(),
-                  ),
-                )
-              ],
-            )),
-            const SizedBox(
-              height: 15,
-            )
-          ],
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.push(

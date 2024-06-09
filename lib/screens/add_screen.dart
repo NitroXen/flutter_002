@@ -18,8 +18,11 @@ class _AddScreenState extends State<AddScreen> {
   late TextEditingController nameController;
   late TextEditingController priceController;
 
+  late DBItems dbItems;
+
   @override
   void initState() {
+    dbItems = DBItems();
     nameController = TextEditingController();
     priceController = TextEditingController();
 
@@ -73,20 +76,19 @@ class _AddScreenState extends State<AddScreen> {
                     ElevatedButton(
                         onPressed: () async {
                           if (widget.mod && priceController.text == "0") {
-                            DBItems.deleteItem(widget.item.id);
+                            dbItems.deleteItem(widget.item.id);
                           } else {
-                            DBItems.insertItem(Item(
+                            dbItems.insertItem(Item(
                                 id: widget.mod
                                     ? widget.item.id
-                                    : await DBItems.getID(),
+                                    : await dbItems.getID(),
                                 name: nameController.text,
                                 price: double.parse(priceController.text)));
                           }
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const MainScreen(),
-                              ));
+                                  builder: (context) => const MainScreen()));
                         },
                         child: Text(widget.mod ? "Modificar" : "Añadir"))
                   ],

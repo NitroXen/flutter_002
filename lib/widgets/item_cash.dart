@@ -36,7 +36,7 @@ class _ItemCashState extends State<ItemCash> {
               });
             },
             onLongPress: () {
-              Navigator.push(context, MaterialPageRoute(
+              Navigator.pushReplacement(context, MaterialPageRoute(
                 builder: (context) {
                   return AddScreen(
                     item: widget.item,

@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_002/models/item.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 
-class DBItems {
-  static Future<Database> _openDB() async {
+class DBItems extends ChangeNotifier {
+  Future<Database> _openDB() async {
     return openDatabase(join(await getDatabasesPath(), 'flutter_database.db'),
         onCreate: (db, version) => db.execute(
               'CREATE TABLE item(id INTEGER PRIMARY KEY, name TEXT, price REAL)',
@@ -12,24 +13,25 @@ class DBItems {
         version: 1);
   }
 
-  static Future<void> insertItem(Item item) async {
+  Future<void> insertItem(Item item) async {
     final db = await _openDB();
     await db.insert('item', item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+    notifyListeners();
   }
 
-  static Future<void> updateItem(Item item) async {
+  Future<void> updateItem(Item item) async {
     final db = await _openDB();
     await db
         .update('item', item.toMap(), where: 'id = ?', whereArgs: [item.id]);
   }
 
-  static Future<void> deleteItem(int id) async {
+  Future<void> deleteItem(int id) async {
     final db = await _openDB();
     await db.delete('item', where: 'id = ?', whereArgs: [id]);
   }
 
-  static Future<List<Item>> getItems() async {
+  Future<List<Item>> getItems() async {
     final db = await _openDB();
     final List<Map<String, dynamic>> maps = await db.query('item');
     return List.generate(maps.length, (i) {
@@ -38,8 +40,8 @@ class DBItems {
     });
   }
 
-  static Future<int> getID() async {
-    List<Item> list = await DBItems.getItems();
+  Future<int> getID() async {
+    List<Item> list = await getItems();
 
     return list.length + 1;
   }
